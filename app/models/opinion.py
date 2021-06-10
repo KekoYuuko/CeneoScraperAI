@@ -56,6 +56,5 @@ class Opinion:
     def __str__(self):
         return 'opinionId: '+str(self.opinionId)+'<br>'+'<br>'.join(key+": "+str(getattr(self, key)) for key in self.selectors.keys())
 
-    def __dict__(self):
-        return {'opinionId': self.opinionId}.update({key: getattr(self, key)
-                                                     for key in self.selectors.keys()})
+    def toDict(self):
+        return {'opinionId': self.opinionId} | {key: getattr(self, key) for key in self.selectors.keys()}
