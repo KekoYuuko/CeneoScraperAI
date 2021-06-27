@@ -1,10 +1,19 @@
 {% extends "layout.html.jinja" %}
 
 {% block middle %}
-    <h2> Products </h2>
+    <h2> Products: </h2>
     <ul class="list-group list-group-flush">
-    {% for product in productsList %}
-        <li class="list-group-item"><a href="{{url_for('product', productId=product)}}">{{product}}</a></li>
+    {% for product in products %}
+        <li class="list-group-item">
+            <a href="{{url_for('product', productId=product['productId'])}}">{{product['name']}}</a>
+            <p class="text-end">
+                <span class="badge bg-primary">{{product['opinionsCount']}}</span>
+                <span class="badge bg-primary">{{ "%.2f"|format(product['averageScore']|float)}}</span>
+                <span class="badge rounded-pill bg-success">{{product['prosCount']}}</span>
+                <span class="badge rounded-pill bg-danger">{{product['consCount']}}</span>
+            </p>
+        </li>
     {% endfor %}
     </ul>
+    {# {{ products|safe }} #}
 {% endblock middle %}

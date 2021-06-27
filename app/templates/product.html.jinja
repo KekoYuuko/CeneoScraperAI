@@ -1,5 +1,8 @@
 {% extends "layout.html.jinja" %}
-
+{% block left %}
+    <canvas id="BarChart" width="400" height="400"></canvas>
+    <canvas id="PieChart" width="400" height="400"></canvas>
+{% endblock %}
 {% block middle %}
     {# <h2> {{product}} </h2> #}
     {# <p> {{product}} </p> #}
@@ -9,8 +12,64 @@
 {% endblock middle %}
 {% block scripts %}
     <script>
-        $(document).ready( function () {
-            $('#opinions').DataTable();
-        } );
+    var ctx = document.getElementById('BarChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: {{ opinionBar.keys() | list }},
+            datasets: [{ 
+                data: {{ opinionBar.values() | list }},
+                borderColor: "#3e95cd",
+                backgroundColor: "#7bb6dd",
+                label: "Podział na opinie"
+              }
+            ]
+          },
+    });
+
+    var ctx2 = document.getElementById('PieChart').getContext('2d');
+    var myChart2 = new Chart(ctx2, {
+          type: 'pie',
+          data: {
+            labels: {{ opinionPie.keys() | list }},
+            datasets: [{ 
+                data: {{ opinionPie.values() | list }},
+                borderColor: [
+                    "#00A617",
+                    "#1E42E7",
+                    "#960000",
+                ],
+                backgroundColor: [
+                    "#1ee339",
+                    "#3e95cd",
+                    "#da3e1c",
+                    ],
+                label: "Podział na opinie kołowy"
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Pie Graph Displaying ratio to Positive(True) and negative(false) Recommendation'
+              }
+            }
+          },
+    });
+    const config = {
+      type: 'pie',
+      data: data,
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'elo'
+          }
+        }
+      },
+    };
     </script>
 {% endblock scripts %}
