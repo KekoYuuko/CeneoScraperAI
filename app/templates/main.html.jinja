@@ -1,5 +1,29 @@
 {% extends "layout.html.jinja" %}
+{% block left %}
 
+    <h6>
+    Imported modules:
+    </h6>
+    <h6>
+    matplotlib,Pandas,Request,beautifulsoup4,
+    </h6>
+    <h6>
+    json,wtforms,validators,wtf_flask,flask
+    </h6>
+{% endblock left %}
 {% block middle %}
-    <h2>Project description</h2>
+    <h5>The project was made to extract specific data from products at ceneo.pl and show this data on product list</h5>
+    <h6>
+    There are few main classes used in this program and 1 of them is imported from module called "beautifulsoup4" which allow us to convert Html/xml into data sturcture.
+    </h6>
+    <h6>
+    At first when we go to extract page, class named ProductForm will limit id's to 8 digit so if we somehow manage to get other id of product then we will not be able extract it.
+    After getting 8 digit id  classes product and opinion will extract specific data from url in product class and save it as json file in 2 different folders. One in products which
+    have data specified in product class and second in opinions which opinion class specified. These data are used in showing superficial data(by products folder) and specific data(opinions folder).
+    Everything is connected by routes which export/render data from program to Html file(jinja2). And then its displayed on our page.
+    </h6>
+    <h6>
+    After we open product from products list it will display Table of data and graph which shows Count of Rating and ratio between positive,negative and none recommendations.
+    Table data is rendered using json file and changing data to table.Graph in other hand uses funcion(in product class) to extract only data we desired and then render it to html file.s
+    </h6>
 {% endblock middle %}
